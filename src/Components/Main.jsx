@@ -3,8 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import { Header } from "./Header";
 import { Nav } from "./Nav";
 import { ReviewsList } from "./ReviewsList";
+import Pagination from "@mui/material/Pagination";
+import { useMediaQuery } from "react-responsive";
+import Stack from "@mui/material/Stack";
 
 export const Main = () => {
+  const isLargeScreen = useMediaQuery({ minDeviceWidth: 768 });
   const [categories, setCategories] = useState([{}]);
   return (
     <div>
@@ -17,6 +21,7 @@ export const Main = () => {
         <Routes>
           <Route path="/:category" element={<ReviewsList />} />
         </Routes>
+        {isLargeScreen ? <Pagination /> : null}
       </main>
     </div>
   );
