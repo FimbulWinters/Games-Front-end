@@ -9,8 +9,6 @@ function App() {
   return (
     <main>
       {initialLoad ? <Splash setInitialLoad={setInitialLoad} /> : <Main />}
-
-      <p>main page body</p>
     </main>
   );
 }
