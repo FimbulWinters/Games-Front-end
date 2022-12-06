@@ -6,7 +6,7 @@ export const Splash = ({ setInitialLoad }) => {
     setInitialLoad(false);
   };
   return (
-    <section>
+    <section className="Splash">
       <header>
         <Header />
       </header>

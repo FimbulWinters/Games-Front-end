@@ -10,7 +10,7 @@ export const ReviewsList = () => {
     getReviews().then(({ reviews }) => {
       setReviews(reviews);
     });
-  }, [reviews]);
+  }, []);
   return (
     <section>
       <h2>Reviews</h2>
