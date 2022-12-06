@@ -7,9 +7,6 @@ export const Splash = ({ setInitialLoad }) => {
   };
   return (
     <section className="Splash">
-      <header>
-        <Header />
-      </header>
       <section>
         <form onSubmit={handleSubmit}>
           <h2>Login as existing user</h2>
