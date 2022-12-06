@@ -68,9 +68,3 @@ h6 {
 #__next {
   isolation: isolate;
 }
-
-.Splash {
-  background-image: url(./images/tangerine-newt-ulapLGnSmMU-unsplash.jpg);
-  width: 100vw;
-  height: 100vh;
-}

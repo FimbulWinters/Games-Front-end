@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 // import { useParams } from "react-router-dom";
 import { getReviews } from "../Utils/api";
+import { Link, Route, Routes } from "react-router-dom";
 
 export const ReviewsList = () => {
-  const [reviews, setReviews] = useState([{}]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     getReviews().then(({ reviews }) => {
@@ -14,12 +15,15 @@ export const ReviewsList = () => {
   return (
     <section>
       <h2>Reviews</h2>
+
       <section>
         <ul>
           {reviews.map((review) => {
             return (
-              <li key={review.title}>
-                <h3>{review.title}</h3>
+              <li key={review.review_id}>
+                <Link to={`/reviews/${review.review_id}`}>
+                  <h3>{review.title}</h3>
+                </Link>
                 <p> Game designed by: {review.designer}</p>
                 <img src={review.review_img_url} alt="Review" />
                 <p>Review by: {review.owner}</p>
