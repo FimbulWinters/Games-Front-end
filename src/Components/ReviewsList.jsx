@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { getReviews } from "../Utils/api";
 
 export const ReviewsList = () => {
@@ -10,7 +10,7 @@ export const ReviewsList = () => {
     getReviews().then(({ reviews }) => {
       setReviews(reviews);
     });
-  }, []);
+  }, [reviews]);
   return (
     <section>
       <h2>Reviews</h2>
@@ -28,7 +28,6 @@ export const ReviewsList = () => {
               </li>
             );
           })}
-          <li>here is the review list</li>
         </ul>
       </section>
     </section>

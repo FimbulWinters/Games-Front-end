@@ -13,15 +13,18 @@ export const Main = () => {
   return (
     <div>
       <Header />
+
       <nav>
         <Nav setCategories={setCategories} categories={categories} />
       </nav>
       <main>
         <ReviewsList />
-        <Routes>
+        {/* <Routes>
           <Route path="/:category" element={<ReviewsList />} />
-        </Routes>
-        {isLargeScreen ? <Pagination /> : null}
+        </Routes> */}
+
+        {/* {isLargeScreen ? <Pagination /> : null} */}
+        {/* too add in properly lateer */}
       </main>
     </div>
   );

@@ -8,7 +8,7 @@ export const Nav = ({ setCategories, categories }) => {
     getCategories().then(({ categories }) => {
       setCategories(categories);
     });
-  }, []);
+  }, [categories]);
   return (
     <ul>
       {categories.map((category) => {
