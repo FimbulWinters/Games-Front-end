@@ -3,7 +3,6 @@ import { useState } from "react";
 // import { useParams } from "react-router-dom";
 import { getReviews } from "../Utils/api";
 import { Link, Route, Routes } from "react-router-dom";
-import { IndividualReview } from "./IndividualReview";
 
 export const ReviewsList = () => {
   const [reviews, setReviews] = useState([]);
