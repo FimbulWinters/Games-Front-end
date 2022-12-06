@@ -6,7 +6,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { IndividualReview } from "./IndividualReview";
 
 export const ReviewsList = () => {
-  const [reviews, setReviews] = useState([{}]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     getReviews().then(({ reviews }) => {
@@ -16,12 +16,13 @@ export const ReviewsList = () => {
   return (
     <section>
       <h2>Reviews</h2>
+
       <section>
         <ul>
           {reviews.map((review) => {
             return (
               <li key={review.review_id}>
-                <Link to={`/review/${review.review_id}`}>
+                <Link to={`/reviews/${review.review_id}`}>
                   <h3>{review.title}</h3>
                 </Link>
                 <p> Game designed by: {review.designer}</p>
