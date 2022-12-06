@@ -21,3 +21,9 @@ export const getIndividualReview = (review_id) => {
     return res.data;
   });
 };
+
+export const getReviewComments = (reviewId) => {
+  return boardGames.get(`reviews/${reviewId}/comments`).then((res) => {
+    return res.data;
+  });
+};

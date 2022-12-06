@@ -6,8 +6,45 @@
 img {
   width: 100px;
   height: 100px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 * {
-  border: 2px solid red;
+  /* border: 2px solid red; */
+}
+
+ul {
+  padding: 0px;
+}
+
+.card {
+  list-style: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  overflow-wrap: break-word;
+  width: 75vw;
+}
+.card .author {
+  border-bottom: 1px solid grey;
+  width: min-content;
+  margin-bottom: 7.5px;
+  margin-top: -3px;
+}
+.card .comment {
+  margin-bottom: 7.5px;
+}
+.card .votes {
+  display: inline;
+  width: 50%;
+}
+
+.card button {
+  display: inline;
+
+  width: 50%;
 }
