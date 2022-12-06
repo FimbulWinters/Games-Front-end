@@ -11,6 +11,9 @@ export const Nav = ({ setCategories, categories }) => {
   }, []);
   return (
     <ul>
+      <li>
+        <Link to={"/"}>home</Link>
+      </li>
       {categories.map((category) => {
         return (
           <li key={category.slug}>

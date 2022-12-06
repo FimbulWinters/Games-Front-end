@@ -6,6 +6,7 @@ import { ReviewsList } from "./ReviewsList";
 import Pagination from "@mui/material/Pagination";
 import { useMediaQuery } from "react-responsive";
 import Stack from "@mui/material/Stack";
+import { IndividualReview } from "./IndividualReview";
 
 export const Main = () => {
   const isLargeScreen = useMediaQuery({ minDeviceWidth: 768 });
@@ -19,9 +20,6 @@ export const Main = () => {
       </nav>
       <main>
         <ReviewsList />
-        {/* <Routes>
-          <Route path="/:category" element={<ReviewsList />} />
-        </Routes> */}
 
         {/* {isLargeScreen ? <Pagination /> : null} */}
         {/* too add in properly lateer */}
