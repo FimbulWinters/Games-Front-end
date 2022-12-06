@@ -27,3 +27,11 @@ export const getReviewComments = (reviewId) => {
     return res.data;
   });
 };
+
+export const patchVotes = (review_id) => {
+  return boardGames
+    .patch(`/reviews/${review_id}`, { inc_votes: 1 })
+    .then((res) => {
+      return res.data;
+    });
+};

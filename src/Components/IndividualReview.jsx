@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getIndividualReview } from "../Utils/api";
+import { getIndividualReview, patchVotes } from "../Utils/api";
+import { HandleUpvotes } from "../Utils/HandleUpvote";
 import { Comments } from "./Comments";
 import { Loading } from "./Loading";
 
@@ -29,14 +30,23 @@ export const IndividualReview = () => {
         </header>
         <section>
           <p>votes: {indReview[0].votes}</p>
-          <button type="button">upVote</button>
+          <button
+            type="button"
+            onClick={HandleUpvotes(indReview, setIndReview, review_id)}
+          >
+            upVote
+          </button>
         </section>
         <article>
           <p>{indReview[0].review_body}</p>
         </article>
       </section>
       <section>
-        <Comments review_id={review_id} />
+        <Comments
+          review_id={review_id}
+          indReview={indReview}
+          setIndReview={setIndReview}
+        />
       </section>
     </section>
   );

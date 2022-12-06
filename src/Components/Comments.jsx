@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getReviewComments } from "../Utils/api";
 import { Loading } from "./Loading";
+import { HandleUpvotes } from "../Utils/HandleUpvote";
 
 export const Comments = ({ review_id }) => {
   const [reviewComments, setReviewComments] = useState([]);
@@ -26,7 +27,7 @@ export const Comments = ({ review_id }) => {
               <p className="comment">{comment.body}</p>
               <div>
                 <p className="votes">votes: {comment.votes}</p>
-                <button>Upvote</button>
+                <button onClick={HandleUpvotes}>Upvote</button>
               </div>
             </li>
           );
