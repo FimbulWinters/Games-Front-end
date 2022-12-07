@@ -2,16 +2,10 @@ import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
-    <header className="bg-red-900">
-      <h1 className="mt-20 pt-4 bg-red-900 text-center text-5xl font-family: 'Eczar', serif;">
-        Board Game Corner
+    <header className=" h-1/4 bg-heroSmall pt-14 pr-2">
+      <h1 className="text-white ml-4 pt-12 text-2xl min-w-fit">
+        Review Corner!
       </h1>
-      <p className="text-center text-xs mt-4 p-4">
-        My stupid cousin thinks he's collected one of every board game ever
-        made... <br />
-        <br />
-        That idiot doesn't have a Clue.
-      </p>
     </header>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getReviewComments } from "../Utils/api";
 import { Loading } from "./Loading";
-import { HandleUpvotes } from "../Utils/HandleUpvote";
+import thumbsIcon from "../images/thumbs-up.svg";
 
 export const Comments = ({ review_id, HandleUpvotes }) => {
   const [reviewComments, setReviewComments] = useState([]);
@@ -15,34 +15,38 @@ export const Comments = ({ review_id, HandleUpvotes }) => {
   }, []);
   let commentsExist = reviewComments.length ? true : false;
 
-  // const HandleUpvotes = () => {
-  //   const newReview = [...indReview];
-  //   newReview[0].votes++;
-  //   setIndReview(newReview);
-  //   patchVotes(review_id).catch((err) => {
-  //     setIndReview(newReview[0]--);
-  //     return <p>Request failed, please try again later</p>;
-  //   });
-  // };
-
   if (commentsExist) {
     return isLoading ? (
       <Loading />
     ) : (
-      <ul>
-        {reviewComments.map((comment) => {
-          return (
-            <li key={comment.comment_id} className="card">
-              <p className="author">{comment.author}</p>
-              <p className="comment">{comment.body}</p>
-              <div>
-                <p className="votes">votes: {comment.votes}</p>
-                <button onClick={HandleUpvotes}>Upvote</button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <section>
+        <h3 className="text-center underline font-bold">Comments</h3>
+        <ul>
+          {reviewComments.map((comment) => {
+            return (
+              <li
+                key={comment.comment_id}
+                className="max-w-sm text-zinc-300 bg-slate-800 rounded overflow-hidden shadow-lg m-2 p-2"
+              >
+                <p className="underline font-bold">{comment.author}</p>
+                <p className="mt-2">{comment.body}</p>
+
+                <button
+                  onClick={HandleUpvotes}
+                  className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2"
+                >
+                  <img
+                    className="inline-block mr-1"
+                    src={thumbsIcon}
+                    alt="thumbs up"
+                  />
+                  <p className="inline-block">{comment.votes}</p>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
     );
   } else {
     return <p>No comments yet</p>;
