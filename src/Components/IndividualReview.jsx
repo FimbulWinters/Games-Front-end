@@ -9,7 +9,7 @@ import { Loading } from "./Loading";
 export const IndividualReview = () => {
   const { review_id } = useParams();
 
-  const [indReview, setIndReview] = useState([]);
+  const [indReview, setIndReview] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,11 +20,11 @@ export const IndividualReview = () => {
   }, []);
 
   const HandleUpvotes = () => {
-    const newReview = [...indReview];
-    newReview[0].votes++;
+    const newReview = { ...indReview };
+    newReview.votes++;
     setIndReview(newReview);
     patchVotes(review_id).catch((err) => {
-      setIndReview(newReview[0]--);
+      setIndReview(newReview.votes--);
       return <p>Request failed, please try again later</p>;
     });
   };
@@ -41,10 +41,13 @@ export const IndividualReview = () => {
           </h2>
           <h3 className="text-m ml-2 mr-2 mb-1 -mt-1">{`reviewed by ${indReview[0].owner}`}</h3>
         </header>
-        <span className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 ">
+        <button
+          onClick={HandleUpvotes}
+          className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 "
+        >
           <img className="inline-block mr-1" src={thumbsIcon} alt="thumbs up" />
           <p className="inline-block">{indReview[0].votes}</p>
-        </span>
+        </button>
         <article className="m-2">
           <p>{indReview[0].review_body}</p>
         </article>
@@ -54,7 +57,6 @@ export const IndividualReview = () => {
           review_id={review_id}
           indReview={indReview}
           setIndReview={setIndReview}
-          HandleUpvotes={HandleUpvotes}
         />
       </section>
     </section>

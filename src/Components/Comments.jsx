@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { getReviewComments } from "../Utils/api";
+import { getReviewComments, patchVotes } from "../Utils/api";
 import { Loading } from "./Loading";
 import thumbsIcon from "../images/thumbs-up.svg";
 
-export const Comments = ({ review_id, HandleUpvotes }) => {
+export const Comments = ({ review_id, setIndReview, indReview }) => {
   const [reviewComments, setReviewComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
   useEffect(() => {
     getReviewComments(review_id).then(({ comments }) => {
       setReviewComments(comments);
@@ -30,18 +31,28 @@ export const Comments = ({ review_id, HandleUpvotes }) => {
               >
                 <p className="underline font-bold">{comment.author}</p>
                 <p className="mt-2">{comment.body}</p>
-
-                <button
-                  onClick={HandleUpvotes}
-                  className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2"
-                >
-                  <img
-                    className="inline-block mr-1"
-                    src={thumbsIcon}
-                    alt="thumbs up"
-                  />
-                  <p className="inline-block">{comment.votes}</p>
-                </button>
+                {!error ? (
+                  <button className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2">
+                    <img
+                      className="inline-block mr-1"
+                      src={thumbsIcon}
+                      alt="thumbs up"
+                    />
+                    <p className="inline-block">{comment.votes}</p>
+                  </button>
+                ) : (
+                  <div>
+                    <button className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 bg-red-600">
+                      <img
+                        className="inline-block mr-1"
+                        src={thumbsIcon}
+                        alt="thumbs up"
+                      />
+                      <p className="inline-block">{comment.votes}</p>
+                    </button>
+                    <p>Sorry, that didnt work, please try again later</p>
+                  </div>
+                )}
               </li>
             );
           })}
