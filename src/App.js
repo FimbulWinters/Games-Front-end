@@ -14,11 +14,11 @@ function App() {
 
   return (
     <main>
-      <Header />
-
-      <nav>
+      <nav className="flex">
         <Nav setCategories={setCategories} categories={categories} />
       </nav>
+
+      <Header />
 
       <Routes>
         <Route path="/*" element={<Main />} />

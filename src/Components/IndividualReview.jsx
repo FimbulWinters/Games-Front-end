@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getIndividualReview, patchVotes } from "../Utils/api";
-import { HandleUpvotes } from "../Utils/HandleUpvote";
+
 import { Comments } from "./Comments";
 import { Loading } from "./Loading";
 
@@ -18,6 +18,16 @@ export const IndividualReview = () => {
     });
   }, []);
 
+  const HandleUpvotes = () => {
+    const newReview = [...indReview];
+    newReview[0].votes++;
+    setIndReview(newReview);
+    patchVotes(review_id).catch((err) => {
+      setIndReview(newReview[0]--);
+      return <p>Request failed, please try again later</p>;
+    });
+  };
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -30,10 +40,7 @@ export const IndividualReview = () => {
         </header>
         <section>
           <p>votes: {indReview[0].votes}</p>
-          <button
-            type="button"
-            onClick={HandleUpvotes(indReview, setIndReview, review_id)}
-          >
+          <button type="button" onClick={HandleUpvotes}>
             upVote
           </button>
         </section>
@@ -46,6 +53,7 @@ export const IndividualReview = () => {
           review_id={review_id}
           indReview={indReview}
           setIndReview={setIndReview}
+          HandleUpvotes={HandleUpvotes}
         />
       </section>
     </section>

@@ -4,7 +4,7 @@ import { getReviewComments } from "../Utils/api";
 import { Loading } from "./Loading";
 import { HandleUpvotes } from "../Utils/HandleUpvote";
 
-export const Comments = ({ review_id }) => {
+export const Comments = ({ review_id, HandleUpvotes }) => {
   const [reviewComments, setReviewComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -14,6 +14,16 @@ export const Comments = ({ review_id }) => {
     });
   }, []);
   let commentsExist = reviewComments.length ? true : false;
+
+  // const HandleUpvotes = () => {
+  //   const newReview = [...indReview];
+  //   newReview[0].votes++;
+  //   setIndReview(newReview);
+  //   patchVotes(review_id).catch((err) => {
+  //     setIndReview(newReview[0]--);
+  //     return <p>Request failed, please try again later</p>;
+  //   });
+  // };
 
   if (commentsExist) {
     return isLoading ? (
