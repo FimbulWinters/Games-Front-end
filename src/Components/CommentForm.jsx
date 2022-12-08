@@ -9,6 +9,10 @@ export const CommentForm = ({ user, review_id }) => {
     setComment(e.target.value);
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -21,6 +25,7 @@ export const CommentForm = ({ user, review_id }) => {
       postComment(review_id, commentToPost).then(() => {
         setComment("");
         setValidInput(true);
+        refreshPage();
       });
     } else {
       setValidInput(validInput);
