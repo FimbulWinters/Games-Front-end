@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getCategories } from "../Utils/api";
 import { Link } from "react-router-dom";
+import profile from "../images/profile-circled.svg";
 
 export const Nav = ({ setCategories, categories }) => {
   useEffect(() => {
@@ -13,6 +14,11 @@ export const Nav = ({ setCategories, categories }) => {
     <ul>
       <li>
         <Link to={"/"}>home</Link>
+      </li>
+      <li>
+        <Link to={"/profile"}>
+          <img src={profile} alt="profile" />
+        </Link>
       </li>
       <li>
         <Link to={"/reviews"}> All reviews</Link>

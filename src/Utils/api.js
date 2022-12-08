@@ -27,3 +27,9 @@ export const getReviewComments = (reviewId) => {
     return res.data;
   });
 };
+
+export const getUser = () => {
+  return boardGames.get("/users").then((res) => {
+    return res.data.users;
+  });
+};
