@@ -16,12 +16,9 @@ export const IndividualReview = ({ user }) => {
     getIndividualReview(review_id).then((review) => {
       console.log(review);
       setIndReview(review);
+      setIsLoading(false);
     });
   }, []);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [indReview]);
 
   const HandleUpvotes = () => {
     const newReview = { ...indReview };

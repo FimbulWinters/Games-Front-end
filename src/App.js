@@ -19,10 +19,10 @@ function App() {
     getUser().then((users) => {
       // hardcoded for the purposes of this
 
-      setUser(users[1]);
+      setUser(users[0]);
       // setIsLoading(false);
     });
-  });
+  }, []);
 
   return (
     <main className="h-screen">

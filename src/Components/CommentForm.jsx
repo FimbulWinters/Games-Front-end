@@ -8,22 +8,26 @@ export const CommentForm = ({ user, review_id }) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     const commentToPost = {
-      author: user.username,
       body: comment,
+      username: `${user.username}`,
     };
-    e.preventDefault();
-    postComment(review_id, commentToPost);
+
+    postComment(review_id, commentToPost).then(() => {
+      setComment("");
+    });
   };
 
   return (
-    <form className="w-full max-w-lg">
+    <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full md:w-1/2 px-3">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            for="comment"
+            htmlFor="comment"
           >
             What would you like to say?
           </label>
@@ -37,9 +41,7 @@ export const CommentForm = ({ user, review_id }) => {
           />
         </div>
       </div>
-      <button type="submit" onSubmit={handleSubmit}>
-        Submit
-      </button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

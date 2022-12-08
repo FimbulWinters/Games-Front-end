@@ -18,15 +18,14 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
       setIsLoading(false);
     });
   }, []);
+
   let commentsExist = reviewComments.length ? true : false;
 
   const handleCommentForm = () => {
     if (!formOpen) {
       setAddComment(true);
-      setFormOpen(true);
     } else {
       setAddComment(false);
-      setFormOpen(false);
     }
   };
 
@@ -71,6 +70,10 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
             );
           })}
         </ul>
+        <section>
+          <button onClick={handleCommentForm}>Add Comment +</button>
+        </section>
+        {addComment ? <CommentForm user={user} review_id={review_id} /> : null}
       </section>
     );
   } else {
@@ -80,7 +83,15 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
           <p>No comments yet</p>
           <button onClick={handleCommentForm}>Add Comment +</button>
         </section>
-        {addComment ? <CommentForm user={user} review_id={review_id} /> : null}
+        {addComment ? (
+          <CommentForm
+            user={user}
+            review_id={review_id}
+            setFormOpen={setFormOpen}
+            reviewComments={reviewComments}
+            setReviewComments={setReviewComments}
+          />
+        ) : null}
       </section>
     );
   }
