@@ -44,7 +44,6 @@ export const postComment = (review_id, body) => {
 };
 
 export const patchVotes = (review_id) => {
-  console.log("hello from post votes");
   return boardGames
     .patch(`/reviews/${review_id}`, { inc_votes: 1 })
     .then((res) => {

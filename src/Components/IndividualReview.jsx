@@ -14,7 +14,6 @@ export const IndividualReview = ({ user }) => {
 
   useEffect(() => {
     getIndividualReview(review_id).then((review) => {
-      console.log(review);
       setIndReview(review);
       setIsLoading(false);
     });
