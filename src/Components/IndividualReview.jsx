@@ -4,7 +4,7 @@ import { getIndividualReview } from "../Utils/api";
 import { Comments } from "./Comments";
 import { Loading } from "./Loading";
 
-export const IndividualReview = () => {
+export const IndividualReview = ({ user }) => {
   const { review_id } = useParams();
 
   const [indReview, setIndReview] = useState([]);
@@ -36,7 +36,7 @@ export const IndividualReview = () => {
         </article>
       </section>
       <section>
-        <Comments review_id={review_id} />
+        <Comments review_id={review_id} user={user} />
       </section>
     </section>
   );

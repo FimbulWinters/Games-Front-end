@@ -33,3 +33,9 @@ export const getUser = () => {
     return res.data.users;
   });
 };
+
+export const postComment = (review_id, body) => {
+  return boardGames.post(`reviews/${review_id}/comments`, body).then((res) => {
+    console.log(res);
+  });
+};
