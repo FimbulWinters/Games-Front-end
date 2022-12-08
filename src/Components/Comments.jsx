@@ -81,17 +81,9 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
       <section>
         <section>
           <p>No comments yet</p>
-          <button onClick={handleCommentForm}>Add Comment +</button>
+          <button onClick={handleCommentForm}>Add Comment</button>
         </section>
-        {addComment ? (
-          <CommentForm
-            user={user}
-            review_id={review_id}
-            setFormOpen={setFormOpen}
-            reviewComments={reviewComments}
-            setReviewComments={setReviewComments}
-          />
-        ) : null}
+        {addComment ? <CommentForm user={user} review_id={review_id} /> : null}
       </section>
     );
   }
