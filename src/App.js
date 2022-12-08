@@ -8,6 +8,7 @@ import { Header } from "./Components/Header";
 import { Nav } from "./Components/Nav";
 import { ReviewsList } from "./Components/ReviewsList";
 import { IndividualReview } from "./Components/IndividualReview";
+import { ReviewsByCategory } from "./Components/ReviewsByCategory";
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -23,6 +24,10 @@ function App() {
       <Routes>
         <Route path="/*" element={<Main />} />
         <Route path="/reviews/*" element={<ReviewsList />} />
+        <Route
+          path="/reviews/category/:category/*"
+          element={<ReviewsByCategory />}
+        />
         <Route path="/reviews/:review_id" element={<IndividualReview />} />
       </Routes>
     </main>

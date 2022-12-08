@@ -35,7 +35,9 @@ export const Nav = ({ setCategories, categories }) => {
               return (
                 <li key={category.slug} className="menu-item">
                   <button onClick={handleOpen}>
-                    <Link to={`/${category.slug}`}>{category.slug}</Link>
+                    <Link to={`/reviews/category/${category.slug}`}>
+                      {category.slug}
+                    </Link>
                   </button>
                 </li>
               );
