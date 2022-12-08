@@ -13,12 +13,12 @@ function App() {
   const [categories, setCategories] = useState([]);
 
   return (
-    <main>
-      <Header />
-
-      <nav>
+    <main className="h-screen">
+      <nav className="flex">
         <Nav setCategories={setCategories} categories={categories} />
       </nav>
+
+      <Header />
 
       <Routes>
         <Route path="/*" element={<Main />} />

@@ -18,7 +18,7 @@ export const getReviews = () => {
 
 export const getIndividualReview = (review_id) => {
   return boardGames.get(`/reviews/${review_id}`).then((res) => {
-    return res.data;
+    return res.data.review[0];
   });
 };
 
@@ -26,4 +26,12 @@ export const getReviewComments = (reviewId) => {
   return boardGames.get(`reviews/${reviewId}/comments`).then((res) => {
     return res.data;
   });
+};
+
+export const patchVotes = (review_id) => {
+  return boardGames
+    .patch(`/reviews/${review_id}`, { inc_votes: 1 })
+    .then((res) => {
+      return res.data;
+    });
 };
