@@ -3,6 +3,7 @@ import { postComment } from "../Utils/api";
 
 export const CommentForm = ({ user, review_id }) => {
   const [comment, setComment] = useState("");
+  const [validInput, setValidInput] = useState(true);
 
   const handleChange = (e) => {
     setComment(e.target.value);
@@ -16,9 +17,14 @@ export const CommentForm = ({ user, review_id }) => {
       username: `${user.username}`,
     };
 
-    postComment(review_id, commentToPost).then(() => {
-      setComment("");
-    });
+    if (comment) {
+      postComment(review_id, commentToPost).then(() => {
+        setComment("");
+        setValidInput(true);
+      });
+    } else {
+      setValidInput(validInput);
+    }
   };
 
   return (
@@ -32,13 +38,19 @@ export const CommentForm = ({ user, review_id }) => {
             What would you like to say?
           </label>
           <input
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            className={
+              validInput
+                ? "appearance-none block w-70 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                : "block w-70 bg-gray-200 text-gray-700 border-2 border-red-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-red-700"
+            }
             id="comment"
             type="text"
             placeholder="comment..."
             value={comment}
             onChange={handleChange}
           />
+          {validInput ? null : <p>Comment cannot be blank</p>}
+          <p></p>
         </div>
       </div>
       <button type="submit">Submit</button>
