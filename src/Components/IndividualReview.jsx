@@ -13,11 +13,15 @@ export const IndividualReview = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getIndividualReview(review_id).then(({ review }) => {
+    getIndividualReview(review_id).then((review) => {
+      console.log(review);
       setIndReview(review);
-      setIsLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [indReview]);
 
   const HandleUpvotes = () => {
     const newReview = { ...indReview };
@@ -35,21 +39,21 @@ export const IndividualReview = () => {
     <section className="bg-gray-300 pt-2">
       <section className="max-w-sm rounded overflow-hidden bg-slate-800 border-4 border-slate-800 clo shadow-2xl m-2 text-zinc-300">
         <header>
-          <img src={indReview[0].review_img_url} alt="" />
+          <img src={indReview.review_img_url} alt="" />
           <h2 className="font-bold text-xl ml-2 mr-2 mb-1 mt-2">
-            {indReview[0].title}
+            {indReview.title}
           </h2>
-          <h3 className="text-m ml-2 mr-2 mb-1 -mt-1">{`reviewed by ${indReview[0].owner}`}</h3>
+          <h3 className="text-m ml-2 mr-2 mb-1 -mt-1">{`reviewed by ${indReview.owner}`}</h3>
         </header>
         <button
           onClick={HandleUpvotes}
           className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 "
         >
           <img className="inline-block mr-1" src={thumbsIcon} alt="thumbs up" />
-          <p className="inline-block">{indReview[0].votes}</p>
+          <p className="inline-block">{indReview.votes}</p>
         </button>
         <article className="m-2">
-          <p>{indReview[0].review_body}</p>
+          <p>{indReview.review_body}</p>
         </article>
       </section>
       <section>

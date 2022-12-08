@@ -18,7 +18,7 @@ export const getReviews = () => {
 
 export const getIndividualReview = (review_id) => {
   return boardGames.get(`/reviews/${review_id}`).then((res) => {
-    return res.data;
+    return res.data.review[0];
   });
 };
 
