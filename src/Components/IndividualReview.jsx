@@ -6,7 +6,7 @@ import thumbsIcon from "../images/thumbs-up.svg";
 import { Comments } from "./Comments";
 import { Loading } from "./Loading";
 
-export const IndividualReview = () => {
+export const IndividualReview = ({ user }) => {
   const { review_id } = useParams();
 
   const [indReview, setIndReview] = useState({});
@@ -14,14 +14,10 @@ export const IndividualReview = () => {
 
   useEffect(() => {
     getIndividualReview(review_id).then((review) => {
-      console.log(review);
       setIndReview(review);
+      setIsLoading(false);
     });
   }, []);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [indReview]);
 
   const HandleUpvotes = () => {
     const newReview = { ...indReview };
@@ -61,6 +57,7 @@ export const IndividualReview = () => {
           review_id={review_id}
           indReview={indReview}
           setIndReview={setIndReview}
+          user={user}
         />
       </section>
     </section>
