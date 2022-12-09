@@ -40,11 +40,18 @@ export const getUser = () => {
   });
 };
 
-export const getSortedReviews = (sortBy) => {
+export const getSortedReviews = (category, sortBy) => {
   console.log(sortBy);
-  return boardGames.get(`/reviews?sort_by=${sortBy}`).then((res) => {
-    return res.data;
-  });
+  return boardGames
+    .get(`/reviews`, {
+      params: {
+        category: category,
+        sort_by: sortBy,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
 
 export const postComment = (review_id, body) => {
