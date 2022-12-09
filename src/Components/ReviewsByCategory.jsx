@@ -41,15 +41,12 @@ export const ReviewsByCategory = () => {
 
   useEffect(() => {
     if (sortBy === "created at" && orderBy === "DESC") {
-      console.log("if");
       getReviewsByCategory(category.category).then(({ reviews }) => {
         setCategoryReviews(reviews);
       });
     } else if (sortBy === "created at" && orderBy === "ASC") {
-      console.log("else if");
       getSortedReviews("created_at", orderBy);
     } else {
-      console.log("else");
       getSortedReviews(sortBy, orderBy).then(({ reviews }) => {
         setCategoryReviews(reviews);
       });
