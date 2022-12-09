@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { getReviewComments, patchVotes } from "../Utils/api";
+import { deleteComment, getReviewComments } from "../Utils/api";
 import { CommentForm } from "./CommentForm";
 import { Loading } from "./Loading";
 import thumbsIcon from "../images/thumbs-up.svg";
 import { format } from "date-fns";
+import deleteIcon from "../images/bin-minus.svg";
 
 export const Comments = ({ review_id, user, setIndReview, indReview }) => {
   const [reviewComments, setReviewComments] = useState([]);
@@ -12,6 +13,7 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
   const [error, setError] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     getReviewComments(review_id).then(({ comments }) => {
@@ -28,6 +30,15 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
     } else {
       setAddComment(false);
     }
+  };
+
+  const handleDelete = (comment_id) => {
+    console.log(comment_id);
+    setDeleting(true);
+    deleteComment(comment_id).then(() => {
+      setDeleting(false);
+      window.location.reload();
+    });
   };
 
   if (commentsExist) {
@@ -74,6 +85,19 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
                     <p>Sorry, that didnt work, please try again later</p>
                   </div>
                 )}
+                {comment.author === user.username ? (
+                  <button
+                    onClick={() => {
+                      handleDelete(comment.comment_id);
+                    }}
+                  >
+                    {!deleting ? (
+                      <img src={deleteIcon} alt="delete comment" />
+                    ) : (
+                      <Loading />
+                    )}
+                  </button>
+                ) : null}
               </li>
             );
           })}

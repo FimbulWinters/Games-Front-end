@@ -71,3 +71,9 @@ export const patchVotes = (review_id) => {
       return res.data;
     });
 };
+
+export const deleteComment = (comment_id) => {
+  return boardGames.delete(`/comments/${comment_id}`).then((res) => {
+    console.log(res);
+  });
+};
