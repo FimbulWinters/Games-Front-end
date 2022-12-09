@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { getReviewsByCategory } from "../Utils/api";
+import { getReviewsByCategory, getSortedReviews } from "../Utils/api";
 import { Link } from "react-router-dom";
 import thumbsIcon from "../images/thumbs-up.svg";
 
 export const ReviewsByCategory = () => {
   const [categoryReviews, setCategoryReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [sortBy, setSortBy] = useState("created at");
+  const [orderBy, setOrderBy] = useState("DESC");
+  const [orderOpen, setOrderOpen] = useState(false);
 
   const category = useParams();
 
@@ -17,6 +21,38 @@ export const ReviewsByCategory = () => {
     });
   }, [category]);
 
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
+  const handleOrderOpen = () => {
+    setOrderOpen(!orderOpen);
+  };
+
+  const handleSelection = (e) => {
+    setSortBy(e.target.textContent);
+    setOpen(!open);
+  };
+
+  const handleOrderSelection = (e) => {
+    setOrderBy(e.target.textContent);
+    setOrderOpen(!orderOpen);
+  };
+
+  useEffect(() => {
+    if (sortBy === "created at" && orderBy === "DESC") {
+      getReviewsByCategory(category.category).then(({ reviews }) => {
+        setCategoryReviews(reviews);
+      });
+    } else if (sortBy === "created at" && orderBy === "ASC") {
+      getSortedReviews("created_at", orderBy);
+    } else {
+      getSortedReviews(sortBy, orderBy).then(({ reviews }) => {
+        setCategoryReviews(reviews);
+      });
+    }
+  }, [sortBy, orderBy]);
+
   return (
     <section className="bg-gray-300">
       <header>
@@ -24,6 +60,59 @@ export const ReviewsByCategory = () => {
           {category.category}
         </h2>
       </header>
+      <section className="h-10">
+        <span className=" inset-y-40 right-0 inline-flex">
+          <button
+            onClick={handleOrderOpen}
+            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
+          >
+            {orderBy === "DESC"
+              ? "ordered by: Descending"
+              : "ordered by: Ascending"}
+          </button>
+          {orderOpen ? (
+            <ul className="bg-gray-500 menu p-1 rounded-2xl">
+              <li className="menu-item" onClick={handleOrderSelection}>
+                DESC
+              </li>
+              <li className="menu-item" onClick={handleOrderSelection}>
+                ASC
+              </li>
+            </ul>
+          ) : null}
+        </span>
+        <span className=" inset-y-40 right-0 inline-flex">
+          <button
+            onClick={handleOpen}
+            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
+          >
+            {sortBy === "created at" ? "sort by..." : `sorted by: ${sortBy}`}
+          </button>
+          {open ? (
+            <ul className="bg-gray-500 menu p-1 rounded-2xl">
+              <li className="menu-item" onClick={handleSelection}>
+                owner
+              </li>
+              <li className="menu-item" onClick={handleSelection}>
+                title
+              </li>
+              <li className="menu-item" onClick={handleSelection}>
+                created at
+              </li>
+
+              <li className="menu-item" onClick={handleSelection}>
+                votes
+              </li>
+              <li className="menu-item" onClick={handleSelection}>
+                designer
+              </li>
+              <li className="menu-item" onClick={handleSelection}>
+                comment_count
+              </li>
+            </ul>
+          ) : null}
+        </span>
+      </section>
 
       <main>
         <ul>
