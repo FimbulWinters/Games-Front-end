@@ -40,13 +40,13 @@ export const getUser = () => {
   });
 };
 
-export const getSortedReviews = (category, sortBy) => {
-  console.log("hello");
+export const getSortedReviews = (sortBy, orderBy) => {
+  console.log(orderBy);
   return boardGames
     .get(`/reviews`, {
       params: {
-        category: category,
         sort_by: sortBy,
+        order: orderBy,
       },
     })
     .then((res) => {

@@ -10,6 +10,8 @@ export const ReviewsByCategory = () => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [sortBy, setSortBy] = useState("created at");
+  const [orderBy, setOrderBy] = useState("DESC");
+  const [orderOpen, setOrderOpen] = useState(false);
 
   const category = useParams();
 
@@ -18,8 +20,13 @@ export const ReviewsByCategory = () => {
       setCategoryReviews(reviews);
     });
   }, [category]);
+
   const handleOpen = () => {
     setOpen(!open);
+  };
+
+  const handleOrderOpen = () => {
+    setOrderOpen(!orderOpen);
   };
 
   const handleSelection = (e) => {
@@ -27,17 +34,27 @@ export const ReviewsByCategory = () => {
     setOpen(!open);
   };
 
+  const handleOrderSelection = (e) => {
+    setOrderBy(e.target.textContent);
+    setOrderOpen(!orderOpen);
+  };
+
   useEffect(() => {
-    if (sortBy === "created at") {
+    if (sortBy === "created at" && orderBy === "DESC") {
+      console.log("if");
       getReviewsByCategory(category.category).then(({ reviews }) => {
         setCategoryReviews(reviews);
       });
+    } else if (sortBy === "created at" && orderBy === "ASC") {
+      console.log("else if");
+      getSortedReviews("created_at", orderBy);
     } else {
-      getSortedReviews(category.category, sortBy).then(({ reviews }) => {
+      console.log("else");
+      getSortedReviews(sortBy, orderBy).then(({ reviews }) => {
         setCategoryReviews(reviews);
       });
     }
-  }, [sortBy]);
+  }, [sortBy, orderBy]);
 
   return (
     <section className="bg-gray-300">
@@ -47,6 +64,26 @@ export const ReviewsByCategory = () => {
         </h2>
       </header>
       <section className="h-10">
+        <span className=" inset-y-40 right-0 inline-flex">
+          <button
+            onClick={handleOrderOpen}
+            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
+          >
+            {orderBy === "DESC"
+              ? "ordered by: Descending"
+              : "ordered by: Ascending"}
+          </button>
+          {orderOpen ? (
+            <ul className="bg-gray-500 menu p-1 rounded-2xl">
+              <li className="menu-item" onClick={handleOrderSelection}>
+                DESC
+              </li>
+              <li className="menu-item" onClick={handleOrderSelection}>
+                ASC
+              </li>
+            </ul>
+          ) : null}
+        </span>
         <span className=" inset-y-40 right-0 inline-flex">
           <button
             onClick={handleOpen}
