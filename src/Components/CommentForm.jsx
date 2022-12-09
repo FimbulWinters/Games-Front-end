@@ -5,6 +5,7 @@ import { postComment } from "../Utils/api";
 export const CommentForm = ({ user, review_id }) => {
   const [comment, setComment] = useState("");
   const [validInput, setValidInput] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (e) => {
     setComment(e.target.value);
@@ -23,11 +24,18 @@ export const CommentForm = ({ user, review_id }) => {
     };
 
     if (comment) {
-      postComment(review_id, commentToPost).then(() => {
-        setComment("");
-        setValidInput(true);
-        refreshPage();
-      });
+      if (isError) {
+        setIsError(false);
+      }
+      postComment(review_id, commentToPost)
+        .then(() => {
+          setComment("");
+          setValidInput(true);
+          refreshPage();
+        })
+        .catch((err) => {
+          setIsError(true);
+        });
     } else {
       setValidInput(false);
     }
@@ -60,6 +68,7 @@ export const CommentForm = ({ user, review_id }) => {
         </div>
       </div>
       <button type="submit">Submit</button>
+      {isError ? <p>oops!! somethinng went wrong</p> : null}
     </form>
   );
 };

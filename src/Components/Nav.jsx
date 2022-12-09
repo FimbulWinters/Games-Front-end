@@ -6,10 +6,16 @@ import downIcon from "../images/menu.svg";
 
 export const Nav = ({ setCategories, categories }) => {
   const [open, setOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   useEffect(() => {
-    getCategories().then(({ categories }) => {
-      setCategories(categories);
-    });
+    getCategories()
+      .then(({ categories }) => {
+        setCategories(categories);
+      })
+      .catch((err) => {
+        setIsError(true);
+      });
   }, []);
 
   const handleOpen = () => {
@@ -31,22 +37,35 @@ export const Nav = ({ setCategories, categories }) => {
           <img src={downIcon} alt="dropdown" />
         </button>
         {open ? (
-          <ul className="menu">
-            <li className="menu-item">
-              <Link to={"/reviews"}> All reviews</Link>
-            </li>
-            {categories.map((category) => {
-              return (
-                <li key={category.slug} className="menu-item">
-                  <button onClick={handleOpen}>
-                    <Link to={`/reviews/category/${category.slug}`}>
-                      {category.slug}
-                    </Link>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          !isError ? (
+            <ul className="menu">
+              <li className="menu-item">
+                <Link to={"/reviews"}> All reviews</Link>
+              </li>
+              {categories.map((category) => {
+                return (
+                  <li key={category.slug} className="menu-item">
+                    <button onClick={handleOpen}>
+                      <Link to={`/reviews/category/${category.slug}`}>
+                        {category.slug}
+                      </Link>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <section>
+              <p>Oops something went wrong, please try again</p>
+              <button
+                onClick={() => {
+                  window.location.reload();
+                }}
+              >
+                try again
+              </button>
+            </section>
+          )
         ) : null}
       </span>
     </div>

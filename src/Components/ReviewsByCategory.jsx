@@ -12,13 +12,18 @@ export const ReviewsByCategory = () => {
   const [sortBy, setSortBy] = useState("created at");
   const [orderBy, setOrderBy] = useState("DESC");
   const [orderOpen, setOrderOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const category = useParams();
 
   useEffect(() => {
-    getReviewsByCategory(category.category).then(({ reviews }) => {
-      setCategoryReviews(reviews);
-    });
+    getReviewsByCategory(category.category)
+      .then(({ reviews }) => {
+        setCategoryReviews(reviews);
+      })
+      .catch((err) => {
+        setIsError(true);
+      });
   }, [category]);
 
   const handleOpen = () => {
@@ -41,19 +46,44 @@ export const ReviewsByCategory = () => {
 
   useEffect(() => {
     if (sortBy === "created at" && orderBy === "DESC") {
-      getReviewsByCategory(category.category).then(({ reviews }) => {
-        setCategoryReviews(reviews);
-      });
+      getReviewsByCategory(category.category)
+        .then(({ reviews }) => {
+          setCategoryReviews(reviews);
+        })
+        .catch(() => {
+          setIsError(true);
+        });
     } else if (sortBy === "created at" && orderBy === "ASC") {
-      getSortedReviews("created_at", orderBy);
+      getSortedReviews("created_at", orderBy)
+        .then(({ reviews }) => {
+          setCategoryReviews(reviews);
+        })
+        .catch(() => {
+          setIsError(true);
+        });
     } else {
-      getSortedReviews(sortBy, orderBy).then(({ reviews }) => {
-        setCategoryReviews(reviews);
-      });
+      getSortedReviews(sortBy, orderBy)
+        .then(({ reviews }) => {
+          setCategoryReviews(reviews);
+        })
+        .catch(() => {
+          setIsError(true);
+        });
     }
   }, [sortBy, orderBy]);
 
-  return (
+  return isError ? (
+    <section>
+      <p>Oops something went wrong</p>{" "}
+      <button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        try again
+      </button>
+    </section>
+  ) : (
     <section className="bg-gray-300">
       <header>
         <h2 className="text-center pt-4 font-bold text-3xl underline ">

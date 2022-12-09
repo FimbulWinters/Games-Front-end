@@ -11,12 +11,18 @@ export const IndividualReview = ({ user }) => {
 
   const [indReview, setIndReview] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    getIndividualReview(review_id).then((review) => {
-      setIndReview(review);
-      setIsLoading(false);
-    });
+    getIndividualReview(review_id)
+      .then((review) => {
+        setIndReview(review);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsError(true);
+        setIsLoading(false);
+      });
   }, []);
 
   const HandleUpvotes = () => {
@@ -33,33 +39,52 @@ export const IndividualReview = ({ user }) => {
     <Loading />
   ) : (
     <section className="bg-gray-300 pt-2">
-      <section className="max-w-sm rounded overflow-hidden bg-slate-800 border-4 border-slate-800 clo shadow-2xl m-2 text-zinc-300">
-        <header>
-          <img src={indReview.review_img_url} alt="" />
-          <h2 className="font-bold text-xl ml-2 mr-2 mb-1 mt-2">
-            {indReview.title}
-          </h2>
-          <h3 className="text-m ml-2 mr-2 mb-1 -mt-1">{`reviewed by ${indReview.owner}`}</h3>
-        </header>
-        <button
-          onClick={HandleUpvotes}
-          className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 "
-        >
-          <img className="inline-block mr-1" src={thumbsIcon} alt="thumbs up" />
-          <p className="inline-block">{indReview.votes}</p>
-        </button>
-        <article className="m-2">
-          <p>{indReview.review_body}</p>
-        </article>
-      </section>
-      <section>
-        <Comments
-          review_id={review_id}
-          indReview={indReview}
-          setIndReview={setIndReview}
-          user={user}
-        />
-      </section>
+      {isError ? (
+        <section>
+          <p> "Oops something went wrong, please try again" </p>
+          <button
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            try again
+          </button>
+        </section>
+      ) : (
+        <section>
+          <section className="max-w-sm rounded overflow-hidden bg-slate-800 border-4 border-slate-800 clo shadow-2xl m-2 text-zinc-300">
+            <header>
+              <img src={indReview.review_img_url} alt="" />
+              <h2 className="font-bold text-xl ml-2 mr-2 mb-1 mt-2">
+                {indReview.title}
+              </h2>
+              <h3 className="text-m ml-2 mr-2 mb-1 -mt-1">{`reviewed by ${indReview.owner}`}</h3>
+            </header>
+            <button
+              onClick={HandleUpvotes}
+              className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 "
+            >
+              <img
+                className="inline-block mr-1"
+                src={thumbsIcon}
+                alt="thumbs up"
+              />
+              <p className="inline-block">{indReview.votes}</p>
+            </button>
+            <article className="m-2">
+              <p>{indReview.review_body}</p>
+            </article>
+          </section>
+          <section>
+            <Comments
+              review_id={review_id}
+              indReview={indReview}
+              setIndReview={setIndReview}
+              user={user}
+            />
+          </section>
+        </section>
+      )}
     </section>
   );
 };
