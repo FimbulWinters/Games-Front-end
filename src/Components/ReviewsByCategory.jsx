@@ -15,7 +15,7 @@ export const ReviewsByCategory = () => {
     getReviewsByCategory(category.category).then(({ reviews }) => {
       setCategoryReviews(reviews);
     });
-  });
+  }, []);
 
   return (
     <section className="bg-gray-300">
