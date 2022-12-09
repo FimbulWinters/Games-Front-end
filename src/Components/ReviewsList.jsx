@@ -46,9 +46,9 @@ export const ReviewsList = () => {
         <span className=" inset-y-40 right-0 inline-flex">
           <button
             onClick={handleOpen}
-            className="bg-gray-700 ml-60 mr-5 p-1 rounded-lg"
+            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
           >
-            sort by...
+            {sortBy === "created at" ? "sort by..." : `sorted by: ${sortBy}`}
           </button>
           {open ? (
             <ul className="bg-gray-500 menu p-1 rounded-2xl">
@@ -76,7 +76,6 @@ export const ReviewsList = () => {
             </ul>
           ) : null}
         </span>
-        current sort {sortBy}
       </section>
 
       <section>
