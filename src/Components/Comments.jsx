@@ -16,10 +16,14 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    getReviewComments(review_id).then(({ comments }) => {
-      setReviewComments(comments);
-      setIsLoading(false);
-    });
+    getReviewComments(review_id)
+      .then(({ comments }) => {
+        setReviewComments(comments);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(true);
+      });
   }, []);
 
   let commentsExist = reviewComments.length ? true : false;
@@ -82,7 +86,14 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
                       />
                       <p className="inline-block">{comment.votes}</p>
                     </button>
-                    <p>Sorry, that didnt work, please try again later</p>
+                    <p>Sorry, that didnt work, please try again</p>
+                    <button
+                      onClick={() => {
+                        window.location.reload();
+                      }}
+                    >
+                      Retry
+                    </button>
                   </div>
                 )}
                 {comment.author === user.username ? (

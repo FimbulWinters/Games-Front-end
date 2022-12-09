@@ -12,6 +12,7 @@ import { ReviewsByCategory } from "./Components/ReviewsByCategory";
 import { Profile } from "./Components/Profile";
 
 import { getUser } from "./Utils/api";
+import { RouteNotFound } from "./Components/RouteNotFound";
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -35,19 +36,38 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/*" element={<Main />} />
-        <Route path="/reviews/*" element={<ReviewsList />} />
+        <Route
+          path="/home"
+          element={<Main />}
+          errorElement={<RouteNotFound />}
+        />
+        <Route
+          path="/reviews/*"
+          element={<ReviewsList />}
+          errorElement={<RouteNotFound />}
+        />
         <Route
           path="/reviews/:review_id"
-          element={<IndividualReview user={user} />}
+          element={
+            <IndividualReview user={user} errorElement={<RouteNotFound />} />
+          }
         />
-        <Route path="/profile" element={<Profile user={user} />} />
+        <Route
+          path="/profile"
+          element={<Profile user={user} errorElement={<RouteNotFound />} />}
+        />
 
         <Route
           path="/reviews/category/:category/*"
           element={<ReviewsByCategory />}
+          errorElement={<RouteNotFound />}
         />
-        <Route path="/reviews/:review_id" element={<IndividualReview />} />
+        <Route
+          path="/reviews/:review_id"
+          element={<IndividualReview />}
+          errorElement={<RouteNotFound />}
+        />
+        <Route path="*" element={<RouteNotFound />} />
       </Routes>
     </main>
   );

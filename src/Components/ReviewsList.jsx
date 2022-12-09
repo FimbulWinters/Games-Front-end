@@ -11,11 +11,16 @@ export const ReviewsList = () => {
   const [sortBy, setSortBy] = useState("created at");
   const [orderBy, setOrderBy] = useState("DESC");
   const [orderOpen, setOrderOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    getReviews().then(({ reviews }) => {
-      setReviews(reviews);
-    });
+    getReviews()
+      .then(({ reviews }) => {
+        setReviews(reviews);
+      })
+      .catch(() => {
+        setIsError(true);
+      });
   }, []);
 
   const handleOpen = () => {
@@ -39,21 +44,46 @@ export const ReviewsList = () => {
   useEffect(() => {
     if (sortBy === "created at" && orderBy === "DESC") {
       console.log("if");
-      getReviews().then(({ reviews }) => {
-        setReviews(reviews);
-      });
+      getReviews()
+        .then(({ reviews }) => {
+          setReviews(reviews);
+        })
+        .catch(() => {
+          setIsError(true);
+        });
     } else if (sortBy === "created at" && orderBy === "ASC") {
       console.log("else if");
-      getSortedReviews("created_at", orderBy);
+      getSortedReviews("created_at", orderBy)
+        .then(({ reviews }) => {
+          setReviews(reviews);
+        })
+        .catch(() => {
+          setIsError(true);
+        });
     } else {
       console.log("else");
-      getSortedReviews(sortBy, orderBy).then(({ reviews }) => {
-        setReviews(reviews);
-      });
+      getSortedReviews(sortBy, orderBy)
+        .then(({ reviews }) => {
+          setReviews(reviews);
+        })
+        .catch(() => {
+          setIsError(true);
+        });
     }
   }, [sortBy, orderBy]);
 
-  return (
+  return isError ? (
+    <section>
+      <p>Oops something went wrong</p>{" "}
+      <button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        try again
+      </button>
+    </section>
+  ) : (
     <section className="bg-gray-300">
       <h2 className="text-center pt-4 font-bold text-3xl underline ">
         Reviews
