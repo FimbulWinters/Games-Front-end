@@ -7,7 +7,7 @@ import thumbsIcon from "../images/thumbs-up.svg";
 
 export const ReviewsByCategory = () => {
   const [categoryReviews, setCategoryReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+
   const [open, setOpen] = useState(false);
   const [sortBy, setSortBy] = useState("created at");
   const [orderBy, setOrderBy] = useState("DESC");
@@ -90,53 +90,53 @@ export const ReviewsByCategory = () => {
           {category.category}
         </h2>
       </header>
-      <section className="h-10">
-        <span className=" inset-y-40 right-0 inline-flex">
+      <section className="h-16 grid grid-cols-2 gap-4 grid-rows-1">
+        <span className=" col-start-1 bg-gray-500 text-white rounded-lg ml-4 mt-2">
           <button
             onClick={handleOrderOpen}
-            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
+            className=" p-1  text-sm text-center"
           >
             {orderBy === "DESC"
               ? "ordered by: Descending"
               : "ordered by: Ascending"}
           </button>
           {orderOpen ? (
-            <ul className="bg-gray-500 menu p-1 rounded-2xl">
-              <li className="menu-item" onClick={handleOrderSelection}>
+            <ul className="bg-gray-500 menu p-1 rounded-2xl mt-4">
+              <li className="menu-item text-sm" onClick={handleOrderSelection}>
                 DESC
               </li>
-              <li className="menu-item" onClick={handleOrderSelection}>
+              <li className="menu-item text-sm" onClick={handleOrderSelection}>
                 ASC
               </li>
             </ul>
           ) : null}
         </span>
-        <span className=" inset-y-40 right-0 inline-flex">
+        <span className=" col-start-2 bg-gray-500 rounded-lg mr-4 mt-2 text-white">
           <button
             onClick={handleOpen}
-            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
+            className="p-1 text-sm text-white text-center"
           >
             {sortBy === "created at" ? "sort by..." : `sorted by: ${sortBy}`}
           </button>
           {open ? (
-            <ul className="bg-gray-500 menu p-1 rounded-2xl">
-              <li className="menu-item" onClick={handleSelection}>
+            <ul className="bg-gray-500 menu p-1 rounded-2xl mt-8">
+              <li className="menu-item text-sm" onClick={handleSelection}>
                 owner
               </li>
-              <li className="menu-item" onClick={handleSelection}>
+              <li className="menu-item text-sm" onClick={handleSelection}>
                 title
               </li>
-              <li className="menu-item" onClick={handleSelection}>
+              <li className="menu-item text-sm" onClick={handleSelection}>
                 created at
               </li>
 
-              <li className="menu-item" onClick={handleSelection}>
+              <li className="menu-item text-sm" onClick={handleSelection}>
                 votes
               </li>
-              <li className="menu-item" onClick={handleSelection}>
+              <li className="menu-item text-sm" onClick={handleSelection}>
                 designer
               </li>
-              <li className="menu-item" onClick={handleSelection}>
+              <li className="menu-item text-sm" onClick={handleSelection}>
                 comment_count
               </li>
             </ul>

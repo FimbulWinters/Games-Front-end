@@ -88,36 +88,36 @@ export const ReviewsList = () => {
       <h2 className="text-center pt-4 font-bold text-3xl underline ">
         Reviews
       </h2>
-      <section className="h-10">
-        <span className=" inset-y-40 right-0 inline-flex">
+      <section className="h-16 grid grid-cols-2 gap-4 grid-rows-1">
+        <span className=" col-start-1 bg-gray-500 text-white rounded-lg ml-4 mt-2">
           <button
             onClick={handleOrderOpen}
-            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
+            className="p-1  text-sm text-center"
           >
             {orderBy === "DESC"
               ? "ordered by: Descending"
               : "sorted by: Ascending"}
           </button>
           {orderOpen ? (
-            <ul className="bg-gray-500 menu p-1 rounded-2xl">
-              <li className="menu-item" onClick={handleOrderSelection}>
+            <ul className="bg-gray-500 menu p-1 rounded-2xl mt-4">
+              <li className="menu-item text-sm" onClick={handleOrderSelection}>
                 DESC
               </li>
-              <li className="menu-item" onClick={handleOrderSelection}>
+              <li className="menu-item text-sm" onClick={handleOrderSelection}>
                 ASC
               </li>
             </ul>
           ) : null}
         </span>
-        <span className=" inset-y-40 right-0 inline-flex">
+        <span className=" col-start-2 bg-gray-500 rounded-lg mr-4 mt-2 text-white">
           <button
             onClick={handleOpen}
-            className="bg-gray-700 ml-60  p-1 rounded-lg w-20 mr-10"
+            className="p-1 text-sm text-white text-center"
           >
             {sortBy === "created at" ? "sort by..." : `sorted by: ${sortBy}`}
           </button>
           {open ? (
-            <ul className="bg-gray-500 menu p-1 rounded-2xl">
+            <ul className="bg-gray-500 menu p-1 rounded-2xl mt-8">
               <li className="menu-item" onClick={handleSelection}>
                 owner
               </li>

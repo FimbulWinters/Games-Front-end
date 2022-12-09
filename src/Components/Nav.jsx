@@ -22,23 +22,23 @@ export const Nav = ({ setCategories, categories }) => {
     setOpen(!open);
   };
   return (
-    <div className="fixed top-0 h-12 p-2 w-screen flex flex-row bg-gray-800 text-white space-x-5">
-      <p className="mr-24 ml-4 p-0 text-lg">
+    <div className="fixed top-0 h-12 p-2 w-screen grid grid-cols-4 content-center bg-gray-800 text-white space-x-5">
+      <p className="col-span-2 text-lg mt-2">
         <Link to={"/home"}>home</Link>
       </p>
-      <button>
+      <button className="col-start-3">
         <Link to={"/profile"}>
           <img src={profile} alt="profile" />
         </Link>
       </button>
 
-      <span className="menu-button pb-1">
+      <span className=" pb-1">
         <button onClick={handleOpen} className="dropdown">
           <img src={downIcon} alt="dropdown" />
         </button>
         {open ? (
           !isError ? (
-            <ul className="menu">
+            <ul className="menu -ml-24 bg-gray-900">
               <li className="menu-item">
                 <Link to={"/reviews"}> All reviews</Link>
               </li>
