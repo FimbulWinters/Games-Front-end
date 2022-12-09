@@ -65,9 +65,7 @@ export const ReviewsByCategory = () => {
               <li className="menu-item" onClick={handleSelection}>
                 created at
               </li>
-              <li className="menu-item" onClick={handleSelection}>
-                category
-              </li>
+
               <li className="menu-item" onClick={handleSelection}>
                 votes
               </li>
