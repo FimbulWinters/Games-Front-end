@@ -28,6 +28,14 @@ export const getReviewComments = (reviewId) => {
   });
 };
 
+
+export const getReviewsByCategory = (category) => {
+  return boardGames.get(`reviews?category=${category}`).then((res) => {
+    return res.data;
+  });
+};
+
+
 export const getUser = () => {
   return boardGames.get("/users").then((res) => {
     return res.data.users;
@@ -42,6 +50,7 @@ export const postComment = (review_id, body) => {
     })
     .catch((err) => err);
 };
+
 
 export const patchVotes = (review_id) => {
   return boardGames
