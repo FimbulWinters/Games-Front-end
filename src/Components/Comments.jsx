@@ -19,7 +19,7 @@ export const Comments = ({ review_id, user, setIndReview, indReview }) => {
         setReviewComments(comments);
         setIsLoading(false);
       })
-      .then((err) => {
+      .catch((err) => {
         setError(true);
       });
   }, []);
