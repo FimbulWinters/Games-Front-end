@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { postComment } from "../Utils/api";
 
@@ -28,7 +29,7 @@ export const CommentForm = ({ user, review_id }) => {
         refreshPage();
       });
     } else {
-      setValidInput(validInput);
+      setValidInput(false);
     }
   };
 

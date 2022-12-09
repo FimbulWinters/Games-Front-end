@@ -8,7 +8,9 @@ import { Header } from "./Components/Header";
 import { Nav } from "./Components/Nav";
 import { ReviewsList } from "./Components/ReviewsList";
 import { IndividualReview } from "./Components/IndividualReview";
+import { ReviewsByCategory } from "./Components/ReviewsByCategory";
 import { Profile } from "./Components/Profile";
+
 import { getUser } from "./Utils/api";
 
 function App() {
@@ -40,6 +42,12 @@ function App() {
           element={<IndividualReview user={user} />}
         />
         <Route path="/profile" element={<Profile user={user} />} />
+
+        <Route
+          path="/reviews/category/:category/*"
+          element={<ReviewsByCategory />}
+        />
+        <Route path="/reviews/:review_id" element={<IndividualReview />} />
       </Routes>
     </main>
   );
