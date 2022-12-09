@@ -41,7 +41,7 @@ export const getUser = () => {
 };
 
 export const getSortedReviews = (category, sortBy) => {
-  console.log(sortBy);
+  console.log("hello");
   return boardGames
     .get(`/reviews`, {
       params: {

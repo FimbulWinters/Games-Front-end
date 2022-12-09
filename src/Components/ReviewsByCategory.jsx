@@ -29,7 +29,7 @@ export const ReviewsByCategory = () => {
 
   useEffect(() => {
     if (sortBy === "created at") {
-      getReviewsByCategory().then(({ reviews }) => {
+      getReviewsByCategory(category.category).then(({ reviews }) => {
         setCategoryReviews(reviews);
       });
     } else {
@@ -73,7 +73,7 @@ export const ReviewsByCategory = () => {
                 designer
               </li>
               <li className="menu-item" onClick={handleSelection}>
-                comment count
+                comment_count
               </li>
             </ul>
           ) : null}
