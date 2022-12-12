@@ -4,6 +4,7 @@ import { useState } from "react";
 import { getReviews, getSortedReviews } from "../Utils/api";
 import { Link } from "react-router-dom";
 import thumbsIcon from "../images/thumbs-up.svg";
+import { useMediaQuery } from "react-responsive";
 
 export const ReviewsList = () => {
   const [reviews, setReviews] = useState([]);
@@ -12,6 +13,8 @@ export const ReviewsList = () => {
   const [orderBy, setOrderBy] = useState("DESC");
   const [orderOpen, setOrderOpen] = useState(false);
   const [isError, setIsError] = useState(false);
+
+  const isLargeScreen = useMediaQuery({ minDeviceWidth: 768 });
 
   useEffect(() => {
     getReviews()
@@ -145,7 +148,7 @@ export const ReviewsList = () => {
       </section>
 
       <section>
-        <ul>
+        <ul className="flex flex-row flex-wrap justify-center">
           {reviews.map((review) => {
             return (
               <li
@@ -155,31 +158,35 @@ export const ReviewsList = () => {
                 <img
                   src={review.review_img_url}
                   alt="Review"
-                  className="w-full"
+                  className="w-full h-1/2"
                 />
-                <Link to={`/reviews/${review.review_id}`}>
-                  <h3 className="font-bold text-xl m-2 ">{review.title}</h3>
-                </Link>
-                <p className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 bg-slate-700">
-                  {" "}
-                  Game designed by: {review.designer}
-                </p>
-                <p className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2">
-                  Review by: {review.owner}
-                </p>
-                <p className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2  bg-slate-700">
-                  Category: {review.category}
-                </p>
-                <div>
-                  <span className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2">
-                    <img
-                      className="inline-block mr-1"
-                      src={thumbsIcon}
-                      alt="thumbs up"
-                    />
-                    <p className="inline-block">{review.votes}</p>
-                  </span>
-                </div>
+                <section className="grid grid-flow-row grid-cols-1 grid-rows-6">
+                  <Link to={`/reviews/${review.review_id}`}>
+                    <h3 className="font-bold text-xl m-2 row-start-1 row-span-2">
+                      {review.title}
+                    </h3>
+                  </Link>
+                  <p className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 bg-slate-700 row-start-3">
+                    {" "}
+                    Game designed by: {review.designer}
+                  </p>
+                  <p className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 row-start-4">
+                    Review by: {review.owner}
+                  </p>
+                  <p className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2  bg-slate-700 row-start-5">
+                    Category: {review.category}
+                  </p>
+                  <div>
+                    <span className="text-sm max-w-sm rounded overflow-hidden shadow-lg m-2 row-start-6">
+                      <img
+                        className="inline-block mr-1"
+                        src={thumbsIcon}
+                        alt="thumbs up"
+                      />
+                      <p className="inline-block">{review.votes}</p>
+                    </span>
+                  </div>
+                </section>
               </li>
             );
           })}

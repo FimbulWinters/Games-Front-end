@@ -22,7 +22,7 @@ export const Nav = ({ setCategories, categories }) => {
     setOpen(!open);
   };
   return (
-    <div className="fixed top-0 h-12 p-2 w-screen grid grid-cols-4 content-center bg-gray-800 text-white space-x-5">
+    <div className="fixed top-0 h-12 p-2 w-screen grid grid-cols-4 justify-items-center content-center bg-gray-800 text-white space-x-5">
       <p className="col-span-2 text-lg mt-2">
         <Link to={"/home"}>home</Link>
       </p>

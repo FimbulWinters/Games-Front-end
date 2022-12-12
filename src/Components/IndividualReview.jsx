@@ -5,6 +5,7 @@ import thumbsIcon from "../images/thumbs-up.svg";
 
 import { Comments } from "./Comments";
 import { Loading } from "./Loading";
+import { useMediaQuery } from "react-responsive";
 
 export const IndividualReview = ({ user }) => {
   const { review_id } = useParams();
@@ -12,6 +13,14 @@ export const IndividualReview = ({ user }) => {
   const [indReview, setIndReview] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+
+  const isLargeScreen = useMediaQuery({ minDeviceWidth: 768 });
+
+  let isFlex = isLargeScreen ? "flex" : "";
+
+  let classes = isLargeScreen
+    ? "w-4/5  justify-center rounded overflow-hidden bg-slate-800 border-4 border-slate-800 clo shadow-2xl m-2 text-zinc-300 "
+    : "max-w-sm rounded overflow-hidden bg-slate-800 border-4 border-slate-800 clo shadow-2xl m-2 text-zinc-300";
 
   useEffect(() => {
     getIndividualReview(review_id)
@@ -51,8 +60,8 @@ export const IndividualReview = ({ user }) => {
           </button>
         </section>
       ) : (
-        <section>
-          <section className="max-w-sm rounded overflow-hidden bg-slate-800 border-4 border-slate-800 clo shadow-2xl m-2 text-zinc-300">
+        <section className={isFlex}>
+          <section className={classes}>
             <header>
               <img src={indReview.review_img_url} alt="" />
               <h2 className="font-bold text-xl ml-2 mr-2 mb-1 mt-2">

@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @import "~react-image-gallery/styles/scss/image-gallery.scss"; */
+@import "~react-image-gallery/styles/css/image-gallery.css";
 @layer components {
   .dropdown {
     @apply w-10 p-2 pt-3;
@@ -10,7 +10,7 @@
     @apply absolute bottom-0 right-0;
   }
   .menu {
-    @apply absolute  list-none m-1 p-0 w-32;
+    @apply absolute  list-none m-1 p-0 w-32 z-50;
   }
   .menu-item {
     @apply p-0 m-1 text-lg text-center align-middle bg-gray-700 rounded-xl;
